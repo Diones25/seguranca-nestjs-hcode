@@ -34,7 +34,7 @@ export class AuthController {
     return this.authService.reset(body.password, body.token);
   }
 
-  @Post('me')
+  @Post('me') //rota para testar a validação do token
   async me(@Body() body) {
     return this.authService.checkToken(body.token);
   }
