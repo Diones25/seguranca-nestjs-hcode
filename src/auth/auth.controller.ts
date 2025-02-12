@@ -6,6 +6,7 @@ import { AuthResetDTO } from "./dto/auth-reset.dto";
 import { UserService } from "src/user/user.service";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "./guards/auth.guard";
+import { User } from "src/decorators/user.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -37,7 +38,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post('me') //rota para testar a validação do token
-  async me(@Req() req) {
-    return { me: true, data: req.tokenPayload };
+  async me(@User() user) {
+    return { user };
   }
 }
