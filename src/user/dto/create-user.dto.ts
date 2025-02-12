@@ -1,4 +1,5 @@
-import { IsEmail, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsEnum, IsOptional, IsString, IsStrongPassword } from "class-validator";
+import { Role } from "src/emuns/role.emun";
 
 export class CreateUserDto {
 
@@ -16,4 +17,8 @@ export class CreateUserDto {
     minSymbols: 0,
   }, { message: 'A senha não é forte o suficiente' })
   password: string;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: number;
 }
