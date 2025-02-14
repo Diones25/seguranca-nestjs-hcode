@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UserService {
@@ -11,6 +12,9 @@ export class UserService {
   private readonly looger = new Logger(UserService.name);
 
   async create(createUserDto: CreateUserDto) {
+
+    createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
+
     this.looger.log("Criando usuário");
     return this.prisma.user.create({ data: createUserDto });
   }
@@ -33,6 +37,10 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.exists(id);
+
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
 
     this.looger.log("Atualizando um usuário");
     return this.prisma.user.update({
