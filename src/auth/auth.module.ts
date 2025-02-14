@@ -8,7 +8,7 @@ import { PrismaModule } from "src/prisma/prisma.module";
 @Module({
   imports: [
     JwtModule.register({
-    secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET,
     }),
     forwardRef(() => UserModule),
     PrismaModule
