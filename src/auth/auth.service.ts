@@ -59,12 +59,17 @@ export class AuthService {
 
     const user = await this.prisma.user.findFirst({
       where: {
-        email,
-        password
+        email
       }
     });
 
     if (!user) {
+      throw new UnauthorizedException("E-mail e/ou senha inválidos");
+    }
+
+    const IsPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!IsPasswordValid) { 
       throw new UnauthorizedException("E-mail e/ou senha inválidos");
     }
 
