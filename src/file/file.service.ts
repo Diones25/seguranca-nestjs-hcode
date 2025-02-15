@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { writeFile } from "fs/promises";
 import { diskStorage } from "multer";
 import { extname } from "path";
@@ -22,7 +22,7 @@ export class FileService {
       }),
       fileFilter: (req, file, callback) => {
         if (!file.mimetype.match(/\/(jpg|jpeg|png|pdf)$/)) {
-          return callback(new Error('Apenas imagens e PDFs são permitidos!'), false);
+          return callback(new BadRequestException('Apenas imagens e PDFs são permitidos!'), false);
         }
         callback(null, true);
       },
