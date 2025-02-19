@@ -6,10 +6,10 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/emuns/role.emun';
-import { RoleGuard } from 'src/auth/guards/role.guard';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../emuns/role.emun';
+import { RoleGuard } from '../auth/guards/role.guard';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @UseGuards(AuthGuard, RoleGuard)
 //@UseInterceptors(LogInterceptor) //Usando interceptor localmente só nesta controller
