@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('API de Autenticação e Authorização com JWT')
-    .setDescription('Esta API implementa emdpoints de autenticação e authorização com JWT e além disso, implementa um sistema de controle de acesso baseado em roles.')
+    .setDescription('Esta API implementa endpoints de autenticação e authorização com JWT e além disso, implementa um sistema de controle de acesso baseado em roles, para as operações que envolvem a listagem de usuários, adição, edição e exclusão, o usuário precisa estar autenticado com um token válido.')
     .setVersion('1.0')
     .build();
   
