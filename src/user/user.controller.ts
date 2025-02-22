@@ -10,8 +10,7 @@ import { Roles } from '../decorators/roles.decorator';
 import { Role } from '../emuns/role.emun';
 import { RoleGuard } from '../auth/guards/role.guard';
 import { AuthGuard } from '../auth/guards/auth.guard';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
-import { stat } from 'fs';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @UseGuards(AuthGuard, RoleGuard)
 //@UseInterceptors(LogInterceptor) //Usando interceptor localmente só nesta controller
@@ -34,6 +33,7 @@ export class UserController {
 
   
   @Get(':id')
+  @ApiBearerAuth('JWT-auth') // Adiciona o ícone de cadeado no Swagger
   @ApiOperation({
     summary: 'Obter um usuário pelo ID',
     description: 'Se o usuário existir o endpont retorna um usuário pelo ID',
