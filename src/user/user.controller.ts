@@ -26,7 +26,52 @@ export class UserController {
  
   @Roles(Role.ADMIN, Role.USER)
   @Get()
-  @ApiOperation({ summary: 'Listar todos os usuários' })
+  @ApiOperation({
+    summary: 'Listar todos os usuários',
+    description: 'Retorna uma lista de todos os usuários cadastrados no sistema',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário encontrado com sucesso',
+    example: [
+      {
+        id: 1,
+        name: 'Luciana',
+        email: 'lu25@gmail.com',
+        password: 'suasenhaforte',
+        role: 1,
+        createdAt: '2023-08-01T00:00:00.000Z',
+        updatedAt: '2023-08-01T00:00:00.000Z'
+      },
+      {
+        id: 2,
+        name: 'Lucas',
+        email: 'lucassilva@gmail.com',
+        password: 'suasenhaforte2',
+        role: 2,
+        createdAt: '2023-08-01T00:00:00.000Z',
+        updatedAt: '2023-08-01T00:00:00.000Z'
+      },
+      {
+        id: 3,
+        name: 'Maria',
+        email: 'ma2545@gmail.com',
+        password: 'suasenhaforte3',
+        role: 1,
+        createdAt: '2023-08-01T00:00:00.000Z',
+        updatedAt: '2023-08-01T00:00:00.000Z'
+      }
+    ]
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Usuário não está autorizado para visualizar esse recurso',
+    example: {
+      message: 'Forbidden resource',
+      error: 'Forbidden',
+      statusCode: 403
+    }
+  })
   findAll() {
     return this.userService.findAll();
   }
