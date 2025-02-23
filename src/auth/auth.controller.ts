@@ -22,6 +22,7 @@ import { User } from "src/decorators/user.decorator";
 import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
 import { join } from "node:path";
 import { FileService } from "src/file/file.service";
+import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +34,26 @@ export class AuthController {
   ) { }
 
   @Post('login')
+  @ApiOperation({
+    summary: 'Login de usuário',
+    description: 'Realiza o login de um usuário cadastrado no sistema',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário logado com sucesso',
+    example: {
+      accessToken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikx1Y2lhbmEiLCJlbWFpbCI6Imx1MjVAZ21haWwuY29tIiwiaWF0IjoxNzQwMzUwOTAwLCJleHAiOjE3NDA5NTU3MDAsImF1ZCI6InVzZXJzIiwiaXNzIjoibG9naW4iLCJzdWIiOiIxIn0.XCrRHo0CN0IvrKEQF-oAjqvSiM0MPf6yvPG16lFQHFs`
+    }
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'E-mail e/ou senha inválidos',
+    example: {
+      message: 'E-mail e/ou senha inválidos',
+      error: 'Unauthorized',
+      statusCode: 401
+    }
+  })
   async login(@Body() body: AuthLoginDTO) {
     return this.authService.login(body.email, body.password);
   }
