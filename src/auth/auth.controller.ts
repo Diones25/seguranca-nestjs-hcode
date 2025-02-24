@@ -93,7 +93,7 @@ export class AuthController {
       error: 'Bad Request',
       statusCode: 400
     }
-  },)
+  })
   @ApiResponse({
     status: 402,
     description: 'Email já existe',
@@ -133,6 +133,29 @@ export class AuthController {
   }
 
   @Post('reset')
+  @ApiOperation({
+    summary: 'Reset de senha',
+    description: 'Endpoint responsável por resetar a senha de um usuário',
+  }) 
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário logado com sucesso',
+    example: {
+      accessToken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikx1Y2lhbmEiLCJlbWFpbCI6Imx1MjVAZ21haWwuY29tIiwiaWF0IjoxNzQwMzUwOTAwLCJleHAiOjE3NDA5NTU3MDAsImF1ZCI6InVzZXJzIiwiaXNzIjoibG9naW4iLCJzdWIiOiIxIn0.XCrRHo0CN0IvrKEQF-oAjqvSiM0MPf6yvPG16lFQHFs`
+    }
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro de validação do body',
+    example: {
+      message: [        
+        'A senha não é forte o suficiente',
+        'Deve ser um token JWT'
+      ],
+      error: 'Bad Request',
+      statusCode: 400
+    }
+  })
   async reset(@Body() body: AuthResetDTO) {
     return this.authService.reset(body.password, body.token);
   }
