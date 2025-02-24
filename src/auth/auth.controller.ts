@@ -46,6 +46,18 @@ export class AuthController {
     }
   })
   @ApiResponse({
+    status: 400,
+    description: 'Erro de validação do body',
+    example: {
+      message: [
+        'Deve ser um email válido',
+        'A senha não é forte o suficiente'
+      ],
+      error: 'Bad Request',
+      statusCode: 400
+    }
+  })
+  @ApiResponse({
     status: 401,
     description: 'E-mail e/ou senha inválidos',
     example: {
