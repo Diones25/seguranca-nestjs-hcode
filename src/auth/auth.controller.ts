@@ -85,11 +85,11 @@ export class AuthController {
     return this.authService.reset(body.password, body.token);
   }
 
-  @UseGuards(AuthGuard)
+  /*@UseGuards(AuthGuard)
   @Post('me') //rota para testar a validação do token
   async me(@User() user) {
     return { user };
-  }
+  }*/
 
   @UseInterceptors(FileInterceptor('photo'))
   @UseGuards(AuthGuard)
