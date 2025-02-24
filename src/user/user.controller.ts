@@ -175,7 +175,7 @@ export class UserController {
   @ApiParam({ name: 'id', type: Number, required: true, description: 'ID do usuário' })
   @ApiResponse({
     status: 200,
-    description: 'Usuário criado com sucesso',
+    description: 'Usuário atualizado com sucesso',
     example: {
       id: 2,
       name: "Jão",
