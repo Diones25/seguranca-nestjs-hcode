@@ -71,6 +71,38 @@ export class AuthController {
   }
 
   @Post('register')
+  @ApiOperation({
+    summary: 'Cadastro de usuário',
+    description: 'Endpoint responsável por realizar o cadastro de um usuário no sistema',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Usuário cadastrado com sucesso',
+    example: {
+      accessToken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikx1Y2lhbmEiLCJlbWFpbCI6Imx1MjVAZ21haWwuY29tIiwiaWF0IjoxNzQwMzUwOTAwLCJleHAiOjE3NDA5NTU3MDAsImF1ZCI6InVzZXJzIiwiaXNzIjoibG9naW4iLCJzdWIiOiIxIn0.XCrRHo0CN0IvrKEQF-oAjqvSiM0MPf6yvPG16lFQHFs`
+    } 
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro de validação do body',
+    example: {
+      message: [
+        'Deve ser um email válido',
+        'A senha não é forte o suficiente'
+      ],
+      error: 'Bad Request',
+      statusCode: 400
+    }
+  },)
+  @ApiResponse({
+    status: 402,
+    description: 'Email já existe',
+    example: {
+      message: 'Email já existe',
+      error: 'Bad Request',
+      statusCode: 402
+    }
+  })
   async register(@Body() body: AuthRegisterDTO) {
     return this.authService.register(body);
   }
