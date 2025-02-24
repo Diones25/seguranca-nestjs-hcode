@@ -18,8 +18,43 @@ import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swag
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Roles(Role.ADMIN)
+  //@Roles(Role.ADMIN)
   @Post()
+  @ApiOperation({
+    summary: 'Criar um usuário',  
+    description: 'Endpoint responsável por criar um novo usuário no sistema',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Usuário criado com sucesso',
+    example: {
+      id: 2,
+      name: "Jão",
+      email: "jonas371@gmail.com",
+      password: "$2b$10$nw8e.8/t9QIwkWk2P7iLfel7K1uuVWwGTGPGGQlNuEoZttpdWTqtq",
+      role: 1,
+      createdAt: "2025-02-24T01:33:24.000Z",
+      updatedAt: "2025-02-24T01:33:24.000Z"
+    }
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Email já existe',
+    example: {
+      message: 'Email já existe',
+      error: 'Bad Request',
+      statusCode: 400
+    }
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Usuário não está autorizado para visualizar esse recurso',
+    example: {
+      message: 'Forbidden resource',
+      error: 'Forbidden',
+      statusCode: 403
+    }
+  })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
