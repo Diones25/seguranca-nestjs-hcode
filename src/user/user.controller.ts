@@ -154,8 +154,56 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Roles(Role.ADMIN)
+  //@Roles(Role.ADMIN)
   @Patch(':id')
+  @ApiOperation({
+    summary: 'Atualizar um usuário pelo ID',
+    description: 'Se o usuário existir o endpont atualiza um usuário pelo ID',
+  })
+  @ApiParam({ name: 'id', type: Number, required: true, description: 'ID do usuário' })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário criado com sucesso',
+    example: {
+      id: 2,
+      name: "Jão",
+      email: "jonas371@gmail.com",
+      password: "$2b$10$nw8e.8/t9QIwkWk2P7iLfel7K1uuVWwGTGPGGQlNuEoZttpdWTqtq",
+      role: 1,
+      createdAt: "2025-02-24T01:33:24.000Z",
+      updatedAt: "2025-02-24T01:33:24.000Z"
+    }
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro de validação do body',
+    example: {
+      message: [
+        'Deve ser um email válido',
+        'A senha não é forte o suficiente'
+      ],
+      error: 'Bad Request',
+      statusCode: 400
+    }
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado',
+    example: {
+      message: 'O usuário 30 não existe',
+      error: 'Not Found',
+      statusCode: 404
+    }
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Usuário não está autorizado para visualizar esse recurso',
+    example: {
+      message: 'Forbidden resource',
+      error: 'Forbidden',
+      statusCode: 403
+    }
+  })
   update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
