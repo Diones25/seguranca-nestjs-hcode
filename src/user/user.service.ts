@@ -65,11 +65,12 @@ export class UserService {
     await this.exists(id);
 
     this.looger.log("Deletando um usuário");
-    return this.prisma.user.delete({
+    await this.prisma.user.delete({
       where: {
         id
       }
     });
+    return { success: true };
   }
 
   async exists(id: number) {

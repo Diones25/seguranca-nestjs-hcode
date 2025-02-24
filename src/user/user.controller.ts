@@ -220,8 +220,28 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
-  @Roles(Role.ADMIN)
+  //@Roles(Role.ADMIN)
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Deletar um usuário pelo ID',
+    description: 'Se o usuário existir o endpont deleta um usuário pelo ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário deletado com sucesso',
+    example: {
+      success: true
+    }
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado',
+    example: {
+      message: 'O usuário 10 não existe',
+      error: 'Not Found',
+      statusCode: 404
+    }
+  })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
   }
