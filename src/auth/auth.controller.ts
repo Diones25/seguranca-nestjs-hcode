@@ -108,6 +108,26 @@ export class AuthController {
   }
 
   @Post('forget')
+  @ApiOperation({
+    summary: 'Esqueci minha senha', 
+    description: 'Endpoint responsável por solicitar a recuperação de senha de um usuário',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'E-mail enviado com sucesso',
+    example: {
+      success: true
+    }
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'E-mail é inválido',
+    example: {
+      message: 'E-mail é inválido',
+      error: 'Unauthorized',
+      statusCode: 401
+    }
+  })
   async forget(@Body() body: AuthForgetDTO) {
     return this.authService.forget(body.email);
   }
